@@ -1,11 +1,11 @@
-import {  Image, ScrollView, Text, View } from 'react-native'
+import {  Alert, Image, ScrollView, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import FormField from '@/components/FormField';
 
 import { images } from '@/constants';
 import CustomBotton from '@/components/CustomBotton';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import { createUser } from '@/lib/appwrite';
 
 const SignUp = () => {
@@ -19,10 +19,22 @@ const SignUp = () => {
   
   
   const submit = async () => {
+    if(!form.email || !form.password || !form.username){
+      Alert.alert('Error', 'Please fill out the field')
+      return;
+    }
+
+    setLoading(true);
     try {
-      createUser()
-    } catch (error) {
-      console.error(error)
+      const result = await createUser(form.email, form.password, form.username);
+      if(result){
+        router.replace('/home')
+      }
+    } catch (error: any) {
+      setLoading(false)
+      Alert.alert('Error', error.message)
+    } finally {
+      setLoading(false)
     }
   }
 
