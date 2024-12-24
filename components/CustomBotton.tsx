@@ -5,7 +5,7 @@ import React, { FC } from 'react';
 type BtnType = {
     title: string;
     handlePress: () => void;
-    containerStyles: string;
+    containerStyles?: string;
     isLoading?: boolean
     textStyles?: string
 }
