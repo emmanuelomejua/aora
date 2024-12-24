@@ -1,7 +1,8 @@
 import { Image, Platform, ScrollView, Text, View,  } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
-import { Redirect, router } from 'expo-router';;
+import { Redirect, router } from 'expo-router';
+import 'react-native-url-polyfill/auto'
 
 import { images } from '@/constants';
 import CustomBotton from '@/components/CustomBotton';

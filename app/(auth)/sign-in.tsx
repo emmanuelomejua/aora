@@ -6,7 +6,7 @@ import FormField from '@/components/FormField';
 import { images } from '@/constants';
 import CustomBotton from '@/components/CustomBotton';
 import { Link } from 'expo-router';
-import  SERVER  from '@/util/SERVER';
+
 
 const SignIn = () => {
 
@@ -20,8 +20,7 @@ const SignIn = () => {
   const submit = async () => {
     
     try {
-      const res = await SERVER.post('auth/signin', {...form});
-      return res.data;
+
     } catch (error) {
       console.error(error)
     }
