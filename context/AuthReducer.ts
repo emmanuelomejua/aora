@@ -1,19 +1,23 @@
-const AuthReducer = (state: any, action: any) => {
+import { AuthState, AuthAction } from './type';
+
+
+const AuthReducer = (state: AuthState, action: AuthAction) => {
     switch (action.type) {
-        case 'user':
+        case 'SET_LOGGED_IN':
             return{
-                // state.user = action.payload
+                ...state, loggedIn: action.payload
             }
-        case 'user':
+        case 'SET_USER':
             return{
-                // state.loading = true
+                ...state, user: action.payload
             }
-        case 'user':
+        case 'SET_LOADING':
             return{
-                // state.user = action.payload
+                ...state, loading: action.payload 
             }
         default:
-            break;
+            throw new Error(`Unhandled action type: ${action}`);
     }
 }
 
+export default AuthReducer;

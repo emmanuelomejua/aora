@@ -1,4 +1,4 @@
-import { Client, Account, ID, Avatars,  Databases, Query, } from 'react-native-appwrite';
+import { Client, Account, ID, Avatars,  Databases, Query, Storage} from 'react-native-appwrite';
 
 
 export const appwriteConfig = {
@@ -23,7 +23,7 @@ client
 
 
 const account = new Account(client);
-const storage = new Storage();
+const storage = new Storage(client);
 const avatars = new Avatars(client);
 const databases = new Databases(client);
 
@@ -36,7 +36,7 @@ export async function createUser (email: string, password: string, username: str
             username
         )
 
-        const avatarUrl = avatars.getInitials(username);
+        // const avatarUrl = avatars.getInitials(username);
 
         await signIn(email, password);
 
@@ -48,7 +48,7 @@ export async function createUser (email: string, password: string, username: str
                 accountId: newAcct.$id,
                 email: email,
                 username: username,
-                avatar: avatarUrl,
+                // avatar: avatarUrl,
             }
         )
 
@@ -150,8 +150,8 @@ export async function signOut() {
           fileId,
           2000,
           2000,
-          "top",
-          100
+          // "top",
+          // 100
         );
       } else {
         throw new Error("Invalid file type");
