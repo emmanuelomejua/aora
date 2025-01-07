@@ -12,16 +12,20 @@ const AuthContext = createContext<{
     state: AuthState;
     dispatch: Dispatch<AuthAction>;
   } | undefined>(undefined);
+  
 
-export const useAuthContext = () => useContext(AuthContext);
+  export const useAuthContext = () => {
+    const context = useContext(AuthContext);
+    if (!context) {
+        throw new Error("useAuthContext must be used within an AuthProvider");
+    }
+    return context;
+};
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE)
 
-    useEffect(() => {
-        localStorage.setItem('user', JSON.stringify(state.user))
-    })
 
     return(
         <AuthContext.Provider value={{state, dispatch }}>
