@@ -6,10 +6,17 @@ import 'react-native-url-polyfill/auto'
 
 import { images } from '@/constants';
 import CustomBotton from '@/components/CustomBotton';
+import { useAuthContext } from '@/context/AuthContext';
 
 export default function App() {
+
+  const { state: { loading, loggedIn }} = useAuthContext();
+
+  if(!loading && loggedIn) return <Redirect href='/home' />
+
+
   return (
-    <SafeAreaView className='bg-primary px-4 flex-1'>
+    <SafeAreaView className='bg-primary px-4 flex-1 justify-center items-center'>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View className='w-full justify-center items-center'>
           <Image source={images.logo} className='w-[130px] h-[84px]' resizeMode='contain'/>

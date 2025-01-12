@@ -6,7 +6,8 @@ import FormField from '@/components/FormField';
 import { images } from '@/constants';
 import CustomBotton from '@/components/CustomBotton';
 import { Link, useRouter } from 'expo-router';
-import {  signIn } from '@/lib/appwrite';
+import {  signIn, getCurrentUser } from '@/lib/appwrite';
+import { useAuthContext } from '@/context/AuthContext';
 
 
 const SignIn = () => {
@@ -15,7 +16,8 @@ const SignIn = () => {
     email: '',
     password: ''
   });
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const {state, dispatch} = useAuthContext();
 
   const router = useRouter()
 
@@ -28,7 +30,10 @@ const SignIn = () => {
     setLoading(true);
     try {
         await signIn(form.email, form.password);
-
+        const result = await getCurrentUser();
+        
+        dispatch({ type: 'SET_USER', payload: result });
+        
         router.replace('/home')
     } catch (error: any) {
       setLoading(false)
@@ -64,6 +69,7 @@ const SignIn = () => {
                 Don't have an account?
               </Text>
               <Link href='/sign-up' className='text-secondary font-psemibold text-lg'>Sign Up</Link>
+              <Link href='/home' className='text-secondary font-psemibold text-lg'>Sign Up</Link>
             </View>
         </View>
       </ScrollView>

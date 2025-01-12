@@ -8,6 +8,7 @@ import 'react-native-reanimated';
 
 
 import '../global.css'
+import AuthProvider from '@/context/AuthContext';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -40,6 +41,7 @@ export default function RootLayout() {
   }
 
   return (
+    <AuthProvider>
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
@@ -47,6 +49,7 @@ export default function RootLayout() {
         {/* <Stack.Screen name="/search[query]" options={{ headerShown: false }} /> */}
         <Stack.Screen name="+not-found" />
       </Stack>
+    </AuthProvider>
   );
 }
 

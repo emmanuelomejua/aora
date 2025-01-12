@@ -7,8 +7,11 @@ import { images } from '@/constants';
 import CustomBotton from '@/components/CustomBotton';
 import { Link, router } from 'expo-router';
 import { createUser } from '@/lib/appwrite';
+import { useAuthContext } from '@/context/AuthContext';
 
 const SignUp = () => {
+
+  const {dispatch} = useAuthContext();
   
   const [form, setForm] = useState({
     username: '',
@@ -27,9 +30,11 @@ const SignUp = () => {
     setLoading(true);
     try {
       const result = await createUser(form.email, form.password, form.username);
-      if(result){
-        router.replace('/home')
-      }
+
+      dispatch({type: 'SET_USER', payload: result});
+      dispatch({type: 'SET_LOGGED_IN', payload: true})
+    
+      router.replace('/home')
     } catch (error: any) {
       setLoading(false)
       Alert.alert('Error', error.message)
